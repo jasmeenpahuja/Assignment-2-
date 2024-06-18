@@ -15,8 +15,7 @@ module.exports.getAllProducts = async (req, res) => {
 
 module.exports.getProductById = async (req, res) => {
   try {
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
-    next();
+    //res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
     res.json(product);
@@ -29,7 +28,7 @@ module.exports.createProduct = async (req, res) => {
   const product = new Product(req.body);
   try {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
-    next();
+
     const newProduct = await product.save();
     res.status(201).json(newProduct);
   } catch (err) {
@@ -40,7 +39,7 @@ module.exports.createProduct = async (req, res) => {
 module.exports.updateProduct = async (req, res) => {
   try {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
-    next();
+
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
 
@@ -55,7 +54,7 @@ module.exports.updateProduct = async (req, res) => {
 module.exports.deleteProduct = async (req, res) => {
   try {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
-    next();
+
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
 
@@ -69,7 +68,7 @@ module.exports.deleteProduct = async (req, res) => {
 module.exports.deleteAllProducts = async (req, res) => {
   try {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
-    next();
+
     await Product.deleteMany({});
     res.json({ message: 'All products deleted' });
   } catch (err) {
@@ -80,7 +79,7 @@ module.exports.deleteAllProducts = async (req, res) => {
 module.exports.findProductsByName = async (req, res) => {
   try {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
-    next();
+
     const products = await Product.find({ name: new RegExp(req.query.name, 'i') });
     res.json(products);
   } catch (err) {
