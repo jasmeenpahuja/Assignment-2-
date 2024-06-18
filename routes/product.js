@@ -5,6 +5,7 @@ var productController = require('../controllers/product.controller.js')
 router
   .get('/', productController.getAllProducts)
   .get('/:id', productController.getProductById)
+  .post('/', productController.createProduct)
 
 
 
